@@ -4,3 +4,4 @@ project(DesignPatterns VERSION 1.0)
 
 add_subdirectory(Decorator)
 add_subdirectory(Singleton)
+add_subdirectory(Observer)
