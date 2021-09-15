@@ -1,4 +1,5 @@
 #include "strategy.h"
+using namespace DuckExample;
 static void MakeTheDuckFly(IDuck* duck)
 {
     duck->fly();

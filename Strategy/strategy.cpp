@@ -1,56 +1,57 @@
 #include "strategy.h"
 
-void IDuck::set_fly_behaviour(IFlyBeahaviour *fly_beahaviour)
+
+void DuckExample::IDuck::set_fly_behaviour(IFlyBeahaviour *fly_beahaviour)
 {
   this->fly_behaviour = std::move(fly_beahaviour);
 }
 
-void IDuck::fly() 
+void  DuckExample::IDuck::fly()
 {
 	this->fly_behaviour->fly();
 }
 
-IDuck::~IDuck() 
+DuckExample::IDuck::~IDuck()
 {
 	delete this->fly_behaviour;
 }
 
-void Flying::fly()
+void  DuckExample::Flying::fly()
 {
 	std::cout << "Duck can fly!\n"; 
 }
 
-void NoFlying::fly()
+void  DuckExample::NoFlying::fly()
 { 
 	std::cout << "Duck can not fly!\n"; 
 }
 
-void Duck::quack() 
+void  DuckExample::Duck::quack()
 { 
 	std::cout << "Quack Quack!\n"; 
 }
 
-Duck::Duck() 
+DuckExample::Duck::Duck()
 {
 	this->fly_behaviour = new Flying();
 }
 
-RuubberDuck::RuubberDuck() 
+DuckExample::RuubberDuck::RuubberDuck()
 { 
 	this->fly_behaviour = new NoFlying();
 }
 
-void RuubberDuck::quack() 
+void  DuckExample::RuubberDuck::quack()
 {
 	std::cout << "Noise!\n";
 }
 
-WoodenDuck::WoodenDuck() 
+DuckExample::WoodenDuck::WoodenDuck()
 { 
 	this->set_fly_behaviour(new NoFlying());
 }
 
-void WoodenDuck::quack() 
+void DuckExample::WoodenDuck::quack()
 { 
 	std::cout << "no sound!\n";
 }

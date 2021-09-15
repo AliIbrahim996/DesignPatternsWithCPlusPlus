@@ -2,54 +2,57 @@
 #define startegy_h
 #include <iostream>
 #include <memory>
-
-class IFlyBeahaviour 
+namespace DuckExample 
 {
+
+	class IFlyBeahaviour
+	{
 	public:
-	virtual void fly() = 0;
-};
+		virtual void fly() = 0;
+	};
 
-class IDuck 
-{
+	class IDuck
+	{
 	protected:
-	  IFlyBeahaviour *fly_behaviour;
+		IFlyBeahaviour* fly_behaviour;
 
 	public:
-	  void set_fly_behaviour(IFlyBeahaviour *fly_behaviour);
-	  void fly();
-	  virtual void quack() = 0;
-	  ~IDuck();
-};
+		void set_fly_behaviour(IFlyBeahaviour* fly_behaviour);
+		void fly();
+		virtual void quack() = 0;
+		~IDuck();
+	};
 
-class Flying : public IFlyBeahaviour
-{
+	class Flying : public IFlyBeahaviour
+	{
 	public:
-	  void fly() override;
-};
+		void fly() override;
+	};
 
-class NoFlying : public IFlyBeahaviour
-{
+	class NoFlying : public IFlyBeahaviour
+	{
 	public:
-	  void fly() override;
-};
+		void fly() override;
+	};
 
-class RuubberDuck : public IDuck {
+	class RuubberDuck : public IDuck {
 	public:
 		RuubberDuck();
 		void quack() override;
-};
+	};
 
-class Duck : public IDuck 
-{
+	class Duck : public IDuck
+	{
 	public:
 		Duck();
 		void quack() override;
-};
+	};
 
-class WoodenDuck : public IDuck 
-{
-	public: 
-		WoodenDuck(); 
+	class WoodenDuck : public IDuck
+	{
+	public:
+		WoodenDuck();
 		void quack() override;
-};
+	};
+}
 #endif // !strategy_h
