@@ -34,3 +34,37 @@ void FileExample::Directory::add(IFile* file)
 {
 	this->file_list_.push_back(file);
 }
+
+AlbumExample::Component::Component(std::string name)
+{
+	this->name = name;
+}
+
+void AlbumExample::Component::add_component(Component* component)
+{
+	throw std::runtime_error("Unsupported operation!\n");
+}
+
+AlbumExample::Song::Song(std::string name): Component(name){}
+
+void AlbumExample::Song::display_info()
+{
+	std::cout << "Song: " << this->name << std::endl;
+}
+
+AlbumExample::Album::Album(std::string name) : Component(name){}
+
+void AlbumExample::Album::display_info()
+{
+	std::cout << "Album: " << this->name << " {\n";
+	for(Component* component: songs_)
+	{
+		component->display_info();
+	}
+	std::cout << "}\n";
+}
+
+void AlbumExample::Album::add_component(Component* component)
+{
+	this->songs_.push_back(component);
+}

@@ -32,5 +32,35 @@ namespace FileExample {
 		void add(IFile* file) override;
 	};
 }
+
+namespace AlbumExample
+{
+	class Component
+	{
+	protected:
+		std::string name;
+	public:
+		Component(std::string name);
+		virtual void display_info() = 0;
+		virtual void add_component(Component* component);
+	};
+
+	class Song : public Component
+	{
+	public:
+		Song(std::string name);
+		void display_info() override;
+	};
+
+	class Album : public Component
+	{
+	private:
+		std::list<Component*> songs_;
+	public:
+		Album(std::string name);
+		void display_info() override;
+		void add_component(Component* component) override;
+	};
+}
 #endif // !composite_h
 
