@@ -1,6 +1,7 @@
 #ifndef command_pattern_h
 #define command_pattern_h
 #include<iostream>
+#include<memory>
 namespace CommandPattern
 {
 	class ICommand;
@@ -41,65 +42,61 @@ public:
 class CommandPattern::LightOnCommand :public ICommand
 {
 private:
-	Light* light_;
+	std::unique_ptr<Light> light_;
 public:
-	LightOnCommand(Light* light);
+	LightOnCommand(std::unique_ptr<Light>& light);
 	void execute() override;
-	~LightOnCommand();
 };
 
 class CommandPattern::LightOffCommand :public ICommand
 {
 private:
-	Light* light_;
+	std::unique_ptr<Light> light_;
 public:
-	LightOffCommand(Light* light);
+	LightOffCommand(std::unique_ptr<Light>& light);
 	void execute() override;
-	~LightOffCommand();
 };
 
 class CommandPattern::ITv : public ICommand
 {
 protected:
-	TV* tv_;
+	std::unique_ptr<TV> tv_;
 public:
-	ITv(TV* tv);
-	~ITv();
+	ITv(std::unique_ptr<TV>& tv);
 };
 class CommandPattern::TVOnCommand :public ITv
 {
 public:
-	TVOnCommand(TV* tv);
+	TVOnCommand(std::unique_ptr<TV>& tv);
 	void execute() override;
 };
 
 class CommandPattern::TVOffCommand :public ITv
 {
 public:
-	TVOffCommand(TV* tv);
+	TVOffCommand(std::unique_ptr<TV>& tv);
 	void execute() override;
 };
 class CommandPattern::TvVolUpCommand:public ITv
 {
 public:
-	TvVolUpCommand(TV* tv);
+	TvVolUpCommand(std::unique_ptr<TV>& tv);
 	void execute() override;
 };
 
 class CommandPattern::TvVolDownCommand :public ITv
 {
 public:
-	TvVolDownCommand(TV* tv);
+	TvVolDownCommand(std::unique_ptr<TV>& tv);
 	void execute() override;
 };
 
 class CommandPattern::RemoteControl
 {
 private:
-	ICommand* slot_;
+	std::unique_ptr<ICommand> slot_;
 public:
-	void set_command(ICommand* command);
+	void set_command(std::unique_ptr<ICommand>& command);
 	void press_button();
-	~RemoteControl();
 };
 #endif // !command_pattern_h

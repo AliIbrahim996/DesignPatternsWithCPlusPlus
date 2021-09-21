@@ -1,26 +1,26 @@
 #include "command.h"
 
 using namespace CommandPattern;
-void set_command(RemoteControl* remote_control, ICommand* new_command)
+void set_command(const std::unique_ptr<RemoteControl>& remote_control, std::unique_ptr<ICommand>& new_command)
 {
 	remote_control->set_command(new_command);
 	remote_control->press_button();
 }
 int main(int argc, char** argv)
 {
-	RemoteControl* remote_control = new RemoteControl();
-	Light* light = new Light();
-	TV* tv = new TV();
+	std::unique_ptr<RemoteControl> remote_control = std::make_unique<RemoteControl>();
+	std::unique_ptr<Light> light = std::make_unique<Light>();
+	std::unique_ptr<TV> tv = std::make_unique<TV>();
 
-	LightOnCommand* light_on = new LightOnCommand(light);
-	LightOffCommand* light_off = new LightOffCommand(light);
+	std::unique_ptr<ICommand> light_on = std::make_unique<LightOnCommand>(light);
+	std::unique_ptr<ICommand> light_off = std::make_unique<LightOffCommand>(light);
 
-	TVOnCommand* tv_on =  new TVOnCommand(tv);
-	TVOffCommand* tv_off =  new TVOffCommand(tv);
-	TvVolUpCommand* volume_up = new TvVolUpCommand(tv);
-	TvVolDownCommand* volume_down = new TvVolDownCommand(tv);
+	std::unique_ptr<ICommand> tv_on = std::make_unique<TVOnCommand>(tv);
+	std::unique_ptr<ICommand> tv_off = std::make_unique<TVOffCommand>(tv);
+	std::unique_ptr<ICommand> volume_up = std::make_unique<TvVolUpCommand>(tv);
+	std::unique_ptr<ICommand> volume_down = std::make_unique<TvVolDownCommand>(tv);
 	bool flag = true;
-	std::cout << "**/\ welcome **\n";
+	std::cout << "**/\\ welcome **\n";
 	while(flag)
 	{
 		std::cout << "Choose one off these commands:\n";
