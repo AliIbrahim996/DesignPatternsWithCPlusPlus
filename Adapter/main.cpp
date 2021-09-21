@@ -5,14 +5,14 @@ int main(int argc, char** argv)
 	std::string img = "https://../../demo.png";
 	std::string text = "hello";
 	std::string video = "https://../../demo.mp4";
-	Adapter::Instagram* inst = new Adapter::Instagram;
-	Adapter::SocialAdapter* fb_adapter = new Adapter::FacebookAdapter();
-	Adapter::SocialAdapter* inst_adapter = new Adapter::InstagramAdapter(inst);
-	std::list<Adapter::SocialAdapter*> adapters;
-	adapters.push_back(fb_adapter);
-	adapters.push_back(inst_adapter);
+	std::unique_ptr<Adapter::Instagram> inst;
+	std::unique_ptr<Adapter::SocialAdapter> fb_adapter(new Adapter::FacebookAdapter());
+	std::unique_ptr<Adapter::SocialAdapter> inst_adapter(new Adapter::InstagramAdapter(inst));
+	std::list<std::unique_ptr<Adapter::SocialAdapter>> adapters;
+	adapters.push_back(std::move(fb_adapter));
+	adapters.push_back(std::move(inst_adapter));
 
-	for(Adapter::SocialAdapter* adpter: adapters)
+	for(auto& adpter: adapters)
 	{
 		adpter->post_image(img);
 		std::cout << "=====================\n";

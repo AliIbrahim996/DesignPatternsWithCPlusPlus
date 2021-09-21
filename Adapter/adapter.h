@@ -23,9 +23,9 @@ namespace Adapter
 	class InstagramAdapter : public SocialAdapter
 	{
 	private:
-		Instagram* instagram_;
+	 std::unique_ptr<Instagram> instagram_;
 	public:
-		InstagramAdapter(Instagram* inst);
+		InstagramAdapter(std::unique_ptr<Instagram>& inst);
 		void post_image(const std::string& img) override;
 		void post_video(const std::string& video) override;
 		void post_text(const std::string& text) override;

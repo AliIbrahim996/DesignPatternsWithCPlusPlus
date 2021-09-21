@@ -12,7 +12,7 @@ void Adapter::Instagram::post_video(const std::string& video)
 }
 
 
-Adapter::InstagramAdapter::InstagramAdapter(Instagram* inst)
+Adapter::InstagramAdapter::InstagramAdapter(std::unique_ptr<Instagram>& inst)
 {
 	this->instagram_ = std::move(inst);
 }
