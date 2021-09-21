@@ -1,27 +1,21 @@
 #include "singleton.h"
 
-
-Singleton* Singleton::instance_{nullptr};
-std::mutex Singleton::mutex_;
-Singleton::Singleton(const std::string value)
+Singleton::Singleton(const std::string& value)
 {
     std::cout << "New instance initialized!" << std::endl;
-    this->value = value;
-}
-Singleton* Singleton::get_instance(const std::string value)
-{
-    std::lock_guard<std::mutex> lock(mutex_);
-    if (instance_ == nullptr)
-        instance_ = new Singleton(value);
-    return instance_;
+    this->value_ = value;
 }
 
-Singleton::~Singleton()
+Singleton::~Singleton(){}
+
+Singleton& Singleton::instance(const std::string& value)
 {
-    delete (instance_);
+    // TODO: insert return statement here
+    static Singleton instance(value);
+    return instance;
 }
 
 std::string Singleton::get_value()
 {
-    return this->value;
+    return this->value_;
 }

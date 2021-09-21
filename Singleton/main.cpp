@@ -4,15 +4,15 @@
 void thread_foo()
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    Singleton* singleton = Singleton::get_instance("Foo");
-    std::cout << singleton->get_value() << std::endl;
+    Singleton& singleton = Singleton::instance("Foo");
+    std::cout << singleton.get_value() << std::endl;
 }
 
 void thread_bar()
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    Singleton* singleton = Singleton::get_instance("bar");
-    std::cout << singleton->get_value() << std::endl;
+    Singleton& singleton = Singleton::instance("bar");
+    std::cout << singleton.get_value() << std::endl;
 }
 
 int main(int argc, char** argv)

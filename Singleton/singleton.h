@@ -7,27 +7,21 @@
 class Singleton
 {
 private:
-    static Singleton* instance_;
-    std::string value;
-    static std::mutex mutex_;
-
-protected:
-    Singleton(const std::string value);
+    std::string value_;
+    Singleton(const std::string& value);
     ~Singleton();
-
-
 public:
     /**
      * @brief a static method that check and return only one instance.
-     * 
-     * \param value
-     * \return 
+     *
+     * \param 
+     * \return a single instance of the class
      */
-    static Singleton* get_instance(const std::string value);
+    static Singleton& instance(const std::string& value);
     /**
-     * @brief Singleton instance should not be cloneable.
-     */
-    Singleton(Singleton& other) = delete;
+    * @brief Singleton instance should not be cloneable.
+    */
+    Singleton(const Singleton&) = delete;
     /**
      * @brief Singleton instance should not be ssignable.
      */
@@ -35,7 +29,7 @@ public:
 
     /**
      * @brief demo method to  get the instance value
-     * 
+     *
      * \return value
      */
     std::string get_value();
