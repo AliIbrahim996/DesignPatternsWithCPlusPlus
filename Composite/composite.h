@@ -9,7 +9,7 @@ namespace FileExample {
 	protected:
 		std::string name_;
 	public:
-		IFile(std::string name);
+		IFile(const std::string& name);
 		virtual void get_info() = 0;
 		virtual void add(IFile* file) = 0;
 	};
@@ -17,7 +17,7 @@ namespace FileExample {
 	class File : public IFile
 	{
 	public:
-		File(std::string name);
+		File(const std::string& name);
 		void get_info() override;
 		void add(IFile* file) override;
 	};
@@ -27,7 +27,7 @@ namespace FileExample {
 	private:
 		std::list<IFile*> file_list_;
 	public:
-		Directory(std::string name);
+		Directory(const std::string& name);
 		void get_info() override;
 		void add(IFile* file) override;
 	};
@@ -40,7 +40,7 @@ namespace AlbumExample
 	protected:
 		std::string name;
 	public:
-		Component(std::string name);
+		Component(const std::string& name);
 		virtual void display_info() = 0;
 		virtual void add_component(Component* component);
 	};
@@ -48,7 +48,7 @@ namespace AlbumExample
 	class Song : public Component
 	{
 	public:
-		Song(std::string name);
+		Song(const std::string&);
 		void display_info() override;
 	};
 
@@ -57,7 +57,7 @@ namespace AlbumExample
 	private:
 		std::list<Component*> songs_;
 	public:
-		Album(std::string name);
+		Album(const std::string& name);
 		void display_info() override;
 		void add_component(Component* component) override;
 	};

@@ -1,11 +1,11 @@
 #include "composite.h"
 
-FileExample::IFile::IFile(std::string name)
+FileExample::IFile::IFile(const std::string& name)
 {
 	this->name_ = name;
 }
 
-FileExample::File::File(std::string name) : IFile(name){}
+FileExample::File::File(const std::string& name) : IFile(name){}
 
 void FileExample::File::get_info()
 {
@@ -17,7 +17,7 @@ void FileExample::File::add(IFile* file)
 	throw std::runtime_error("this functionality is not available for files!\n");
 }
 
-FileExample::Directory::Directory(std::string name): IFile(name){}
+FileExample::Directory::Directory(const std::string& name): IFile(name){}
 
 void FileExample::Directory::get_info()
 {
@@ -35,7 +35,7 @@ void FileExample::Directory::add(IFile* file)
 	this->file_list_.push_back(file);
 }
 
-AlbumExample::Component::Component(std::string name)
+AlbumExample::Component::Component(const std::string& name)
 {
 	this->name = name;
 }
@@ -45,14 +45,14 @@ void AlbumExample::Component::add_component(Component* component)
 	throw std::runtime_error("Unsupported operation!\n");
 }
 
-AlbumExample::Song::Song(std::string name): Component(name){}
+AlbumExample::Song::Song(const std::string& name): Component(name){}
 
 void AlbumExample::Song::display_info()
 {
 	std::cout << "Song: " << this->name << std::endl;
 }
 
-AlbumExample::Album::Album(std::string name) : Component(name){}
+AlbumExample::Album::Album(const std::string& name) : Component(name){}
 
 void AlbumExample::Album::display_info()
 {
