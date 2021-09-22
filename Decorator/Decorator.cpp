@@ -1,23 +1,22 @@
 #include "Decorator.h"
 
-Decorator::Decorator(Pizza* p)
+Decorator::Decorator(std::unique_ptr<Pizza>& p)
     : p(move(p)){};
 
 string Decorator::getDesc()
 {
     if (p)
         return p->getDesc();
+    else
+        return "";
 }
 
 double Decorator::getCost()
 {
     if (p)
         return p->getCost();
-}
-
-Decorator::~Decorator()
-{
-    delete (p);
+    else
+        return 0;
 }
 
 string BasePizza::getDesc()
@@ -30,7 +29,7 @@ double BasePizza::getCost()
     return 1.0;
 }
 
-WithTomato::WithTomato(Pizza* base)
+WithTomato::WithTomato(std::unique_ptr<Pizza>& base)
     : Decorator(base){};
 
 string WithTomato::getDesc()
@@ -44,7 +43,7 @@ double WithTomato::getCost()
 }
 
 
-WithChees::WithChees(Pizza* base)
+WithChees::WithChees(std::unique_ptr<Pizza>& base)
     : Decorator(base){};
 
 string WithChees::getDesc()
@@ -57,7 +56,7 @@ double WithChees::getCost()
     return Decorator::getCost() + 3.5;
 }
 
-WithMashroom::WithMashroom(Pizza* base)
+WithMashroom::WithMashroom(std::unique_ptr<Pizza>& base)
     : Decorator(base){};
 
 string WithMashroom::getDesc()
@@ -70,27 +69,47 @@ double WithMashroom::getCost()
     return Decorator::getCost() + 2.0;
 }
 
-Pizza* PizzaFactory::getMyPizza(int type)
+std::unique_ptr<Pizza> PizzaFactory::getMyPizza(int type)
 {
+    std::unique_ptr<Pizza> pizza;
+    std::unique_ptr<Pizza> base;
+    std::unique_ptr<Pizza> with_chees;
+    std::unique_ptr<Pizza> with_mashroom;
+    std::unique_ptr<Pizza> with_tomato;
+
     switch (type)
     {
         case 1:
-            return new BasePizza();
+            base = std::make_unique<BasePizza>();
+            pizza = std::move(base);
             break;
         case 2:
-            return new WithChees(new BasePizza());
+            base = std::make_unique<BasePizza>();
+            with_chees = std::make_unique<WithChees>(base);
+            pizza = std::move(with_chees);
             break;
         case 3:
-            return new WithMashroom(new WithChees(new BasePizza()));
+            base = std::make_unique<BasePizza>();
+            with_chees = std::make_unique<WithChees>(base);
+            with_mashroom = std::make_unique < WithMashroom>(with_chees);
+            pizza = std::move(with_mashroom);
             break;
         case 4:
-            new WithTomato(new WithChees(new BasePizza()));
+            base = std::make_unique<BasePizza>();
+            with_chees = std::make_unique<WithChees>(base);
+            with_tomato = std::make_unique<WithTomato>(with_chees);
+            pizza = std::move(with_tomato);
             break;
         case 5:
-            new WithMashroom(new WithChees(new WithTomato(new BasePizza())));
+            base = std::make_unique<BasePizza>();
+            with_tomato = std::make_unique<WithTomato>(base);
+            with_chees = std::make_unique<WithChees>(with_tomato);
+            with_mashroom = std::make_unique < WithMashroom>(with_chees);
+            pizza = std::move(with_mashroom);
             break;
         default:
-            return nullptr;
+            pizza = nullptr;
             break;
     }
+    return std::move(pizza);
 }

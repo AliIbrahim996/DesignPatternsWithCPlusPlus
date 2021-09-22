@@ -32,7 +32,7 @@ public:
 class Decorator : public Pizza
 {
 protected:
-    Pizza* p;
+    std::unique_ptr<Pizza> p;
 
 
 public:
@@ -41,7 +41,7 @@ public:
      *
      *      @param [in] p , refers to The Pizza type
      */
-    explicit Decorator(Pizza* p);
+    explicit Decorator(std::unique_ptr<Pizza>& p);
     /*!
      *  Returns the decorated pizza's cost.
      *
@@ -54,7 +54,6 @@ public:
      *      @return The description.
      */
     virtual double getCost();
-    ~Decorator();
 };
 
 /**
@@ -88,7 +87,7 @@ public:
      *
      *      @param [in] base
      */
-    explicit WithTomato(Pizza* base);
+    explicit WithTomato(std::unique_ptr<Pizza>& base);
     /*!
      *  Returns pizza with tomato desc.
      *
@@ -113,7 +112,7 @@ public:
      *
      *      @param [in] base
      */
-    WithChees(Pizza* base);
+    WithChees(std::unique_ptr<Pizza>& base);
     /*!
      *  Returns pizza with Chees desc.
      *
@@ -138,7 +137,7 @@ public:
      *
      *      @param [in] base
      */
-    WithMashroom(Pizza* base);
+    WithMashroom(std::unique_ptr<Pizza>& base);
     /*!
      *  Returns pizza with Mashroom desc.
      *
@@ -166,6 +165,6 @@ public:
      *
      *      @return The new pizza.
      */
-    static Pizza* getMyPizza(int type);
+    static std::unique_ptr<Pizza> getMyPizza(int type);
 };
 #endif

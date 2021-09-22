@@ -10,15 +10,13 @@ int main(int argc, char** argv)
                 "tomato and chees\n5* With chees, tomato and mashroom\n0* Exit"
              << endl;
         cin >> c;
-        Pizza* p = PizzaFactory::getMyPizza(c);
+        std::unique_ptr<Pizza> p = PizzaFactory::getMyPizza(c);
         if (p)
         {
             cout << "Your order: " << p->getDesc() << "\nPrice: " << p->getCost();
             cout << "\n**************************************************************"
                     "**"
                     "*****\n";
-            delete (p);
         }
-
     } while (c != 0);
 }
