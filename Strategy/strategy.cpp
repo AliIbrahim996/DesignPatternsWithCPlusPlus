@@ -1,7 +1,7 @@
 #include "strategy.h"
 
 
-void Strategy::DuckExample:: IDuck::set_fly_behaviour(Strategy::DuckExample::IFlyBeahaviour *fly_beahaviour)
+void Strategy::DuckExample:: IDuck::set_fly_behaviour(std::unique_ptr<IFlyBeahaviour> fly_beahaviour)
 {
   this->fly_behaviour = std::move(fly_beahaviour);
 }
@@ -9,11 +9,6 @@ void Strategy::DuckExample:: IDuck::set_fly_behaviour(Strategy::DuckExample::IFl
 void  Strategy::DuckExample::IDuck::fly()
 {
 	this->fly_behaviour->fly();
-}
-
-Strategy::DuckExample::IDuck::~IDuck()
-{
-	delete this->fly_behaviour;
 }
 
 void Strategy::DuckExample::Flying::fly()
@@ -33,12 +28,12 @@ void  Strategy::DuckExample::Duck::quack()
 
 Strategy::DuckExample::Duck::Duck()
 {
-	this->fly_behaviour = new Flying();
+	this->fly_behaviour = std::make_unique<Flying>();
 }
 
 Strategy::DuckExample::RuubberDuck::RuubberDuck()
 { 
-	this->fly_behaviour = new NoFlying();
+	this->fly_behaviour = std::make_unique<NoFlying>();
 }
 
 void  Strategy::DuckExample::RuubberDuck::quack()
@@ -48,7 +43,7 @@ void  Strategy::DuckExample::RuubberDuck::quack()
 
 Strategy::DuckExample::WoodenDuck::WoodenDuck()
 { 
-	this->set_fly_behaviour(new NoFlying());
+	this->set_fly_behaviour(std::make_unique<NoFlying>());
 }
 
 void Strategy::DuckExample:: WoodenDuck::quack()
@@ -71,14 +66,14 @@ std::string Strategy::PockemonExample::Pockemon::get_name()
 	return this->name_;
 }
 
-void Strategy::PockemonExample::Pockemon::set_fight_type(IFight* fight)
+void Strategy::PockemonExample::Pockemon::set_fight_type(std::unique_ptr<IFight> fight)
 {
 	this->fight_type = std::move(fight);
 }
 
-Strategy::PockemonExample::IFight* Strategy::PockemonExample::Pockemon::get_fight_type()
+std::unique_ptr<Strategy::PockemonExample::IFight> Strategy::PockemonExample::Pockemon::get_fight_type()
 {
-	return this->fight_type;
+	return std::move(this->fight_type);
 }
 
 void Strategy::PockemonExample::Pockemon::perform_fight()
@@ -108,20 +103,20 @@ void Strategy::PockemonExample::FireFight::fight()
 
 Strategy::PockemonExample::Pikatcho::Pikatcho() : Pockemon("Pikatcho")
 {
-	this->set_fight_type(new ElictricFight());
+	this->set_fight_type(std::make_unique<ElictricFight>());
 };
 
 Strategy::PockemonExample::Scoero::Scoero() : Pockemon("Scoero")
 {
-	this->set_fight_type(new WaterFight());
+	this->set_fight_type(std::make_unique<WaterFight>());
 };
 
 Strategy::PockemonExample::Meaoz::Meaoz() : Pockemon("Meaoz")
 {
-	this->set_fight_type(new CantFight());
+	this->set_fight_type(std::make_unique<CantFight>());
 };
 
 Strategy::PockemonExample::Charmander::Charmander() : Pockemon("Charmander") 
 {
-	this->set_fight_type(new FireFight());
+	this->set_fight_type(std::make_unique<FireFight>());
 };

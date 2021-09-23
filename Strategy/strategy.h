@@ -17,13 +17,12 @@ namespace Strategy
 		class IDuck
 		{
 		protected:
-			IFlyBeahaviour* fly_behaviour;
+			std::unique_ptr<IFlyBeahaviour> fly_behaviour;
 
 		public:
-			void set_fly_behaviour(IFlyBeahaviour* fly_behaviour);
+			void set_fly_behaviour(std::unique_ptr<IFlyBeahaviour> fly_behaviour);
 			void fly();
 			virtual void quack() = 0;
-			~IDuck();
 		};
 
 		class Flying : public IFlyBeahaviour
@@ -70,13 +69,13 @@ namespace Strategy
 		{
 		private:
 			std::string name_;
-			IFight* fight_type;
+			std::unique_ptr<IFight> fight_type;
 		public:
 			Pockemon(const std::string& name);
 			void set_name(const std::string& name);
 			std::string get_name();
-			void set_fight_type(IFight* fight);
-			IFight* get_fight_type();
+			void set_fight_type(std::unique_ptr<IFight> fight);
+			std::unique_ptr<IFight> get_fight_type();
 			void perform_fight();
 		};
 
