@@ -52,10 +52,6 @@ void AlbumExample::Song::add_component(std::unique_ptr<Component>& component)
 	throw std::runtime_error("this operation is not supported!\n");
 }
 
-/*void AlbumExample::Album::display_info()
-{
-	
-}*/
 
 AlbumExample::Album::Album(const std::string& name) : Component(name){}
 
