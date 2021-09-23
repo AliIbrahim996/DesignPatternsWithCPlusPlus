@@ -23,12 +23,12 @@ namespace Atm
 	class Atm::AtmMachine
 	{
 	private:
-		HasCardState* has_card_;
-		NoCardState* no_card_;
-		NoCashState* no_cash_;
-		ReadyState* ready_;
+		std::unique_ptr<HasCardState> has_card_;
+		std::unique_ptr<NoCardState> no_card_;
+		std::unique_ptr<NoCashState> no_cash_;
+		std::unique_ptr<ReadyState> ready_;
 		double total_balance_;
-		ATMState* current_state_;
+		std::unique_ptr<ATMState> current_state_;
 	public:
 		AtmMachine(double balance);
 		void insert_card();
@@ -37,12 +37,12 @@ namespace Atm
 		void request_cash(const double& amount);
 		void set_balance(const double& balance);
 		double& get_balance();
-		void set_current_state(ATMState* state);
-		ATMState* get_current_state();
-		ATMState* get_no_card_state();
-		ATMState* get_has_card_state();
-		ATMState* get_no_cash_state();
-		ATMState* get_ready_state();
+		void set_current_state(std::unique_ptr<ATMState>&  state);
+		std::unique_ptr <ATMState> get_current_state();
+		std::unique_ptr <ATMState> get_no_card_state();
+		std::unique_ptr <ATMState> get_has_card_state();
+		std::unique_ptr <ATMState> get_no_cash_state();
+		std::unique_ptr <ATMState> get_ready_state();
 	};
 	class Atm::HasCardState : public ATMState
 	{

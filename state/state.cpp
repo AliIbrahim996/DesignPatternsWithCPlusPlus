@@ -4,11 +4,11 @@
 Atm::AtmMachine::AtmMachine(double balance)
 {
 	this->total_balance_ = balance;
-	this->has_card_ = new HasCardState(this);
-	this->no_card_ = new NoCardState(this);
-	this->no_cash_ = new NoCashState(this);
-	this->ready_ = new ReadyState(this);
-	this->current_state_ = this->no_card_;
+	this->has_card_ = std::make_unique<HasCardState>(this);
+	this->no_card_ = std::make_unique<NoCardState>(this);
+	this->no_cash_ = std::make_unique<NoCashState>(this);
+	this->ready_ = std::make_unique<ReadyState>(this);
+	this->current_state_ = std::move(this->no_card_);
 }
 
 void Atm::AtmMachine::insert_card()
@@ -41,35 +41,35 @@ double& Atm::AtmMachine::get_balance()
 	return this->total_balance_;
 }
 
-void Atm::AtmMachine::set_current_state(ATMState* state)
+void Atm::AtmMachine::set_current_state(std::unique_ptr<ATMState>& state)
 {
 	this->current_state_ = std::move(state);
 }
 
-Atm::ATMState* Atm::AtmMachine::get_current_state()
+std::unique_ptr<Atm::ATMState> Atm::AtmMachine::get_current_state()
 {
 	// TODO: insert return statement here
-	return this->current_state_;
+	return std::move(this->current_state_);
 }
 
-Atm::ATMState* Atm::AtmMachine::get_no_card_state()
+std::unique_ptr<Atm::ATMState> Atm::AtmMachine::get_no_card_state()
 {
-	return this->no_card_;
+	return std::move(this->no_card_);
 }
 
-Atm::ATMState* Atm::AtmMachine::get_has_card_state()
+std::unique_ptr<Atm::ATMState> Atm::AtmMachine::get_has_card_state()
 {
-	return this->has_card_;
+	return std::move(this->has_card_);
 }
 
-Atm::ATMState* Atm::AtmMachine::get_no_cash_state()
+std::unique_ptr<Atm::ATMState> Atm::AtmMachine::get_no_cash_state()
 {
-	return this->no_cash_;
+	return std::move(this->no_cash_);
 }
 
-Atm::ATMState* Atm::AtmMachine::get_ready_state()
+std::unique_ptr<Atm::ATMState> Atm::AtmMachine::get_ready_state()
 {
-	return this->ready_;
+	return std::move(this->ready_);
 }
 /*Has card state*/
 Atm::HasCardState::HasCardState(AtmMachine* atm) : atm_(std::move(atm)){}
@@ -174,8 +174,9 @@ void Atm::ReadyState::request_cash(const double& amount)
 	{
 		std::cout << "Take your money!!\n";
 		this->atm_->set_balance(balance - amount);
-		this->eject_card();
 		balance = this->atm_->get_balance();
+		this->eject_card();
+		
 		if(balance == 0)
 		{
 			this->atm_->set_current_state(this->atm_->get_no_cash_state());
