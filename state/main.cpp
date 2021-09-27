@@ -13,5 +13,5 @@ int main(int argc, char** argv)
 	std::cout << "How much money do you want?\n";
 	std::cin >> balance;
 	atm->request_cash(balance);
-
+	atm->insert_card();
 }

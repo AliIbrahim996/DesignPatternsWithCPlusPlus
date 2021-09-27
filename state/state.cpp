@@ -8,7 +8,7 @@ Atm::AtmMachine::AtmMachine(double balance)
 	this->no_card_ = std::make_unique<NoCardState>(this);
 	this->no_cash_ = std::make_unique<NoCashState>(this);
 	this->ready_ = std::make_unique<ReadyState>(this);
-	this->current_state_ = std::move(this->no_card_);
+	this->current_state_ = this->no_card_.get();
 }
 
 void Atm::AtmMachine::insert_card()
@@ -26,53 +26,53 @@ void Atm::AtmMachine::insert_password(const std::string& password)
 	this->current_state_->insert_password(password);
 }
 
-void Atm::AtmMachine::request_cash(const double& amount)
+void Atm::AtmMachine::request_cash(double amount)
 {
 	this->current_state_->request_cash(amount);
 }
 
-void Atm::AtmMachine::set_balance(const double& balance)
+void Atm::AtmMachine::set_balance(double balance)
 {
 	this-> total_balance_ = balance;
 }
 
-double& Atm::AtmMachine::get_balance()
+double Atm::AtmMachine::get_balance()
 {
 	return this->total_balance_;
 }
 
-void Atm::AtmMachine::set_current_state(std::unique_ptr<ATMState>& state)
+void Atm::AtmMachine::set_current_state(ATMState* state)
 {
-	this->current_state_ = std::move(state);
+	this->current_state_ = state;
 }
 
-std::unique_ptr<Atm::ATMState> Atm::AtmMachine::get_current_state()
+Atm::ATMState* Atm::AtmMachine::get_current_state()
 {
 	// TODO: insert return statement here
-	return std::move(this->current_state_);
+	return this->current_state_;
 }
 
-std::unique_ptr<Atm::ATMState> Atm::AtmMachine::get_no_card_state()
+Atm::ATMState*  Atm::AtmMachine::get_no_card_state()
 {
-	return std::move(this->no_card_);
+	return this->no_card_.get();
 }
 
-std::unique_ptr<Atm::ATMState> Atm::AtmMachine::get_has_card_state()
+Atm::ATMState* Atm::AtmMachine::get_has_card_state()
 {
-	return std::move(this->has_card_);
+	return this->has_card_.get();
 }
 
-std::unique_ptr<Atm::ATMState> Atm::AtmMachine::get_no_cash_state()
+Atm::ATMState* Atm::AtmMachine::get_no_cash_state()
 {
-	return std::move(this->no_cash_);
+	return this->no_cash_.get();
 }
 
-std::unique_ptr<Atm::ATMState> Atm::AtmMachine::get_ready_state()
+Atm::ATMState* Atm::AtmMachine::get_ready_state()
 {
-	return std::move(this->ready_);
+	return this->ready_.get();
 }
 /*Has card state*/
-Atm::HasCardState::HasCardState(AtmMachine* atm) : atm_(std::move(atm)){}
+Atm::HasCardState::HasCardState(AtmMachine* atm) : atm_(atm){}
 
 void Atm::HasCardState::insert_card()
 {
@@ -98,13 +98,13 @@ void Atm::HasCardState::insert_password(const std::string& password)
 	}
 }
 
-void Atm::HasCardState::request_cash(const double& amount)
+void Atm::HasCardState::request_cash(double amount)
 {
 	std::cout << "Enter your password first!\n";
 }
 
 /*No card state*/
-Atm::NoCardState::NoCardState(AtmMachine* atm) : atm_(std::move(atm)) {}
+Atm::NoCardState::NoCardState(AtmMachine* atm) : atm_(atm) {}
 
 void Atm::NoCardState::insert_card()
 {
@@ -122,12 +122,12 @@ void Atm::NoCardState::insert_password(const std::string& password)
 	std::cout << "Insert card first!!\n";
 }
 
-void Atm::NoCardState::request_cash(const double& amount)
+void Atm::NoCardState::request_cash(double amount)
 {
 	std::cout << "Insert card first!!\n";
 }
 /*No cash state*/
-Atm::NoCashState::NoCashState(AtmMachine* atm) : atm_(std::move(atm)) {}
+Atm::NoCashState::NoCashState(AtmMachine* atm) : atm_(atm) {}
 
 void Atm::NoCashState::insert_card()
 {
@@ -144,12 +144,12 @@ void Atm::NoCashState::insert_password(const std::string& password)
 	std::cout << "no card detected!!\n";
 }
 
-void Atm::NoCashState::request_cash(const double& amount)
+void Atm::NoCashState::request_cash(double amount)
 {
 	std::cout << "no card detected!!\n";
 }
 /*Ready  state*/
-Atm::ReadyState::ReadyState(AtmMachine* atm) : atm_(std::move(atm)) {}
+Atm::ReadyState::ReadyState(AtmMachine* atm) : atm_(atm) {}
 
 void Atm::ReadyState::insert_card()
 {
@@ -167,7 +167,7 @@ void Atm::ReadyState::insert_password(const std::string& password)
 	std::cout << "Password is already inserted!!\n";
 }
 
-void Atm::ReadyState::request_cash(const double& amount)
+void Atm::ReadyState::request_cash(double amount)
 {
 	double balance = this->atm_->get_balance();
 	if(balance >= amount)
