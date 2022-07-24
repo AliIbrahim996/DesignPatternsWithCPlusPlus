@@ -1,0 +1,9 @@
+editables:
+
+    adapter_design_pattern/main@designPattern/testing:
+        path: submodules/adpter_design_pattern
+
+layout: layout
+workspace_generator: cmake
+root:
+   

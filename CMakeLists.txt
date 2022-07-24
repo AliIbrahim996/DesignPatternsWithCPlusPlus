@@ -1,12 +1,3 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.15)
 
-project(DesignPatterns VERSION 1.0)
-
-add_subdirectory(Decorator)
-add_subdirectory(Singleton)
-add_subdirectory(Observer)
-add_subdirectory(Strategy)
-add_subdirectory(Adapter)
-add_subdirectory(Composite)
-add_subdirectory(State)
-add_subdirectory(Command_Pattern)
+project(DesignPatterns VERSION 2.0)

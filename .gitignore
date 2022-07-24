@@ -1,4 +1,4 @@
-build/
+*build*
 .idea
 .vs
 .vscode
