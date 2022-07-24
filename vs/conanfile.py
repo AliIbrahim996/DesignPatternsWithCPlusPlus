@@ -1,6 +1,6 @@
 import conans
 
-class RG20_workspace_win_adtf3(conans.ConanFile):
+class Design_Patterns_Workspace(conans.ConanFile):
     name = "Design_Patterns_Workspace"
     generators = "virtualenv"
 
