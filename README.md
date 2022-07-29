@@ -17,41 +17,62 @@
 </details>
 # Requirements
 
-1) [cmake 3.2](https://cmake.org/ "cmake home")
+1) [Python](https://www.python.org/downloads/ "Python download page")
 
 2) [Visual Studio ( 2019 recomended )](https://visualstudio.microsoft.com/downloads/ "Visula studio download page")
+
+3) [conan](https://docs.conan.io/en/latest/installation.html)
 
 # Getting-start
 
 **_This is the instruction you need to build and use the project._**
 <br/>
-After you install cmake make sure that it in your system envirounment path see https://perso.uclouvain.be/allan.barrea/opencv/building_tools.html
+* After you install python you need to install `conan`.
+<br/>
+* To install Conan using pip, you need Python>=3.6 distribution installed on your machine:
+```bash
+pip install conan
+```
+<br/>
+
+* Create a conan profile:
+```bash
+conan profile new win_vc15_x64 --detect
+```
+* Go to your user profile `.conan/profiles` folder and then update the profile you creted with this settings:
+```
+[settings]
+os=Windows
+os_build=Windows
+arch=x86_64
+arch_build=x86_64
+compiler=Visual Studio
+compiler.version=16
+os=Windows
+build_type=Release
+
+[options]
+[build_requires]
+[env]
+```
 
 1. ### Clone the repository
 
 ```bat
-  git clone https://github.com/AliIbrahim996/DesignPatternsWithCPlusPlus.git
-  cd DesignPatternsWithCPlusPlus
+  git clone https://github.com/AliIbrahim996/DesignPatternsWithCPlusPlus.git DesignPattern
+  cd DesignPattern
+  cd vs
 ```
-2. ### Run config_project.bat to configure and build the solution or use cmd and write these instructions
+2. ### Run create_solution.bat.bat to configure and create the strcuture of the project
 
-```bat
-   mkdir build 
-   cmake -S . -B build
-```
-
-3. ### Run build_solution.bat to build the solution or use any termial that sutable to your system and write these instructions
-
-```bat
-  cmake --build build
-```
 # Contact
 
  Ali ibrahim - ali.ibrahim.2@lit-co.net 
   <br/>
- gmail: allosheribraheem38@gmail.com 
+ gmail: allosheribraheem38@gmail.com
+ outlook: eng.aliibrahim.96@outlook.coom
   <br/>
- linkedin: https://www.linkedin.com/in/ali-ibrahim-b978b4181/ 
+ LinkedIn: https://www.linkedin.com/in/ali-ibrahim-b978b4181/ 
   <br/>
- &copy; 2021
+ &copy; 2022
 

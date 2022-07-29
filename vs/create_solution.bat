@@ -1,7 +1,9 @@
 setlocal
 
 REM install tools
-conan install . --profile=win_vc15_x64 || exit /b 2
+conan profile new win_vc15_x64 --detect
+
+conan install . --profile=win_vc15_x64  --build missing || exit /b 2
 
 REM install workspace
 conan workspace install . %* || exit /b 3

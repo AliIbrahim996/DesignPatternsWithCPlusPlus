@@ -1,0 +1,13 @@
+# This is the folder where conan workspaces expects CmakeLists.txt.
+[source_folder]
+.
+
+# This is the folder relative to each editable project where build files are generated in.
+[build_folder]
+../../vs/{{reference.name}}
+
+[builddirs]
+../../vs/{{reference.name}}
+
+[bindirs]
+../../vs/{{reference.name}}/bin
