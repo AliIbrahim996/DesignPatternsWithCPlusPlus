@@ -40,7 +40,7 @@ pip install conan
 conan profile new win_vc15_x64 --detect
 ```
 * Go to your user profile `.conan/profiles` folder and then update the profile you creted with this settings:
-```
+```conf
 [settings]
 os=Windows
 os_build=Windows
@@ -63,7 +63,7 @@ build_type=Release
   cd DesignPattern
   cd vs
 ```
-2. ### Run create_solution.bat.bat to configure and create the strcuture of the project
+2. Run `create_solution.bat` to configure and create the strcuture of the project
 
 # Contact
 
