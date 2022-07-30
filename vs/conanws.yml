@@ -1,10 +1,10 @@
 editables:
-    adapter_design_pattern/develop@designPattern/testing:
-        path: ../submodules/adapter_design_pattern
+    StructuralPatterns/develop@designPattern/testing:
+        path: ../submodules/StructuralPatterns
     cmakeHelper/0.1@designPattern/testing:
         path: ../submodules/cmakeHelper
 workspace_generator: cmake
 
 layout: layout
 
-root: adapter_design_pattern/develop@designPattern/testing
+root: StructuralPatterns/develop@designPattern/testing
