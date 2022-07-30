@@ -1,6 +1,6 @@
-[submodule "submodules/adapter_design_pattern"]
-	path = submodules/adapter_design_pattern
-	url = https://github.com/AliIbrahim996/AdapterDesignPattern.git
+[submodule "submodules/StructuralPatterns"]
+	path = submodules/StructuralPatterns
+	url = https://github.com/AliIbrahim996/StructuralPatterns.git
 	branch = develop
 
 [submodule "submodules/cmakeHelper"]
