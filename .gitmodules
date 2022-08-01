@@ -7,3 +7,8 @@
 	path = submodules/cmakeHelper
 	url = https://github.com/AliIbrahim996/cmakeHelper.git
 	branch = develop
+
+[submodule "submodules/CreationalPatterns"]
+	path = submodules/CreationalPatterns
+	url = https://github.com/AliIbrahim996/CreationalPatterns.git
+	branch = develop
