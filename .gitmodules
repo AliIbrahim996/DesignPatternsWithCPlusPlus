@@ -12,6 +12,7 @@
 	path = submodules/CreationalPatterns
 	url = https://github.com/AliIbrahim996/CreationalPatterns.git
 	branch = develop
+
 [submodule "submodules/BehavioralPatterns"]
 	path = submodules/BehavioralPatterns
 	url = https://github.com/AliIbrahim996/BehavioralPatterns
