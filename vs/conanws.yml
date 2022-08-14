@@ -1,10 +1,20 @@
 editables:
-    adapter_design_pattern/develop@designPattern/testing:
-        path: ../submodules/adapter_design_pattern
+
+    StructuralPatterns/develop@designPattern/testing:
+        path: ../submodules/StructuralPatterns
+    CreationalPatterns/develop@designPattern/testing:
+        path: ../submodules/CreationalPatterns
+    BehavioralPatterns/develop@designPattern/testing:
+        path: ../submodules/BehavioralPatterns
     cmakeHelper/0.1@designPattern/testing:
         path: ../submodules/cmakeHelper
+
 workspace_generator: cmake
 
 layout: layout
 
-root: adapter_design_pattern/develop@designPattern/testing
+# TODO until creating a main root and then requires all subfolders inside it
+root:  
+    - StructuralPatterns/develop@designPattern/testing
+    - CreationalPatterns/develop@designPattern/testing
+    - BehavioralPatterns/develop@designPattern/testing
