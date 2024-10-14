@@ -59,7 +59,7 @@ build_type=Release
 1. ### Clone the repository
 
 ```bat
-  git clone https://github.com/AliIbrahim996/DesignPatternsWithCPlusPlus.git DesignPattern
+  git clone https://github.com/AliIbrahim996/DesignPatternsWithCPlusPlus.git DesignPattern --recursive
   cd DesignPattern
   cd vs
 ```
